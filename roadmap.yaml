@@ -172,7 +172,7 @@
     Build an interactive website that visualizes survey results. The dashboard
     should allow filtering by the respondent's branch in the org chart and show
     how they spend their percentage of time across tasks.
-  status: todo
+  status: done
   dependencies: [T010]
   files_to_create:
     - src/workweek_survey/dashboard.py
@@ -185,3 +185,22 @@
     - "Visiting `/dashboard` displays charts with filter controls for org_branch and time allocation."
     - "Changing filters updates the displayed percentages accordingly."
   complexity: 8
+
+- task_id: T014
+  title: CSV export option
+  description: |
+    Add ability to export survey results as CSV. Update configuration
+    validation, storage, and export logic to handle csv output format.
+  status: todo
+  dependencies: [T005]
+  files_to_create: []
+  files_to_modify:
+    - src/workweek_survey/config.py
+    - src/workweek_survey/storage.py
+    - src/workweek_survey/main.py
+    - tests/test_api.py
+  acceptance_criteria:
+    - "Setting OUTPUT_FORMAT to csv exports responses as comma-separated values."
+    - "CSV export matches JSON field order."
+  complexity: 3
+
