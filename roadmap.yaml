@@ -165,3 +165,23 @@
     - "Exports include a field `survey_year`."
     - "README describes annual update process."
   complexity: 1
+
+- task_id: T013
+  title: Filterable analytics dashboard
+  description: |
+    Build an interactive website that visualizes survey results. The dashboard
+    should allow filtering by the respondent's branch in the org chart and show
+    how they spend their percentage of time across tasks.
+  status: todo
+  dependencies: [T010]
+  files_to_create:
+    - src/workweek_survey/dashboard.py
+    - src/workweek_survey/templates/dashboard.html
+    - src/workweek_survey/static/dashboard.js
+    - tests/test_dashboard.py
+  files_to_modify:
+    - src/workweek_survey/main.py
+  acceptance_criteria:
+    - "Visiting `/dashboard` displays charts with filter controls for org_branch and time allocation."
+    - "Changing filters updates the displayed percentages accordingly."
+  complexity: 8
