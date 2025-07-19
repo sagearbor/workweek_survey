@@ -1,5 +1,7 @@
 from fastapi import FastAPI, HTTPException, Request
 from fastapi.responses import HTMLResponse, JSONResponse, Response
+import csv
+from io import StringIO
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 import json
@@ -52,6 +54,33 @@ async def export() -> Response:
     elif fmt == "yaml":
         yaml_str = yaml.safe_dump(payload)
         return Response(content=yaml_str, media_type="application/x-yaml")
+    elif fmt == "csv":
+        output = StringIO()
+        writer = csv.writer(output)
+        writer.writerow(
+            [
+                "survey_year",
+                "respondent",
+                "org_branch",
+                "name",
+                "duration_hours",
+                "category",
+            ]
+        )
+        year = payload["survey_year"]
+        for resp in _RESPONSES:
+            for task in resp.tasks:
+                writer.writerow(
+                    [
+                        year,
+                        resp.respondent or "",
+                        resp.org_branch or "",
+                        task.name,
+                        task.duration_hours,
+                        task.category,
+                    ]
+                )
+        return Response(content=output.getvalue(), media_type="text/csv")
     else:
         raise HTTPException(status_code=500, detail="Unsupported OUTPUT_FORMAT")
 

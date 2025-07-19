@@ -191,7 +191,7 @@
   description: |
     Add ability to export survey results as CSV. Update configuration
     validation, storage, and export logic to handle csv output format.
-  status: todo
+  status: done
   dependencies: [T005]
   files_to_create: []
   files_to_modify:

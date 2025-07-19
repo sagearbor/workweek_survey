@@ -14,8 +14,10 @@ class Settings(BaseSettings):
     @field_validator("output_format")
     def validate_format(cls, v: str) -> str:
         lv = v.lower()
-        if lv not in {"json", "yaml"}:
-            raise ValueError("OUTPUT_FORMAT must be 'json' or 'yaml'")
+        if lv not in {"json", "yaml", "csv"}:
+            raise ValueError(
+                "OUTPUT_FORMAT must be 'json', 'yaml', or 'csv'"
+            )
         return lv
 
     model_config = SettingsConfigDict(env_prefix="", env_file=".env")
