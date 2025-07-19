@@ -12,4 +12,4 @@ templates = Jinja2Templates(directory=str(BASE_DIR / "templates"))
 
 async def dashboard(request: Request) -> HTMLResponse:
     """Render the interactive analytics dashboard."""
-    return templates.TemplateResponse("dashboard.html", {"request": request})
+    return templates.TemplateResponse(request, "dashboard.html")
