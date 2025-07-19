@@ -23,6 +23,14 @@ pip install .[dev]
 3. Share the survey link: `http://<your-host>:${PORT:-8000}/survey`
 4. Download results from `/export` in the desired format.
 
+See [docs/usage.md](docs/usage.md) for a full walkthrough including analysis tips.
+
+### Annual updates
+
+At the start of each year, clear previous responses and invite the team to fill
+out the survey again. Exported data now includes a `survey_year` field so you
+can track results over time.
+
 ## Testing
 
 ```bash

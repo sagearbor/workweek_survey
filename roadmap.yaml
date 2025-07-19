@@ -91,7 +91,7 @@
 - task_id: T007
   title: Dockerize application
   description: Ensure Dockerfile and docker-compose work for local dev; test container startup and hot reload.
-  status: todo
+  status: done
   dependencies: [T001, T006]
   files_to_create: []
   files_to_modify:
@@ -118,7 +118,7 @@
 - task_id: T009
   title: Continuous integration
   description: Configure GitHub Actions (or similar) to run linting, tests, and build on each PR.
-  status: todo
+  status: done
   dependencies: [T001, T008]
   files_to_create:
     - .github/workflows/ci.yml
@@ -130,7 +130,7 @@
 - task_id: T010
   title: Analytics dashboard prototype
   description: Build a simple script or notebook that reads stored responses and outputs summary metrics (e.g., average hours per category).
-  status: todo
+  status: done
   dependencies: [T005]
   files_to_create:
     - analytics/summary.ipynb
@@ -142,7 +142,7 @@
 - task_id: T011
   title: Documentation and examples
   description: Expand README with usage screenshots, CLI examples, and export format samples.
-  status: todo
+  status: done
   dependencies: [T004, T005]
   files_to_create:
     - docs/usage.md
@@ -155,7 +155,7 @@
 - task_id: T012
   title: Annual update workflow
   description: Add logic or reminders for scheduling the survey annually; consider adding a timestamp/version to exports.
-  status: todo
+  status: done
   dependencies: [T005]
   files_to_create:
     - src/workweek_survey/utils.py

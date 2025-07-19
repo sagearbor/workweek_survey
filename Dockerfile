@@ -15,4 +15,5 @@ WORKDIR /app
 COPY --from=builder /install /usr/local
 COPY src/ src/
 ENV PYTHONPATH=/app
-CMD ["uvicorn", "workweek_survey.main:app", "--host", "0.0.0.0", "--port", "8000"]
+ENV PORT=8000
+CMD ["uvicorn", "workweek_survey.main:app", "--reload", "--host", "0.0.0.0", "--port", "8000"]
