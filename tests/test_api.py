@@ -1,6 +1,7 @@
+import os
+os.environ.setdefault("STORAGE_PATH", "/tmp/workweek_test")
 from fastapi.testclient import TestClient
 from workweek_survey.main import app
-import os
 
 client = TestClient(app)
 

@@ -13,6 +13,7 @@ dependencies = [
   "python-dotenv",
   "pyyaml",
   "jinja2",
+  "pydantic-settings",
 ]
 [project.optional-dependencies]
 dev = [
