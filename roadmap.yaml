@@ -1,0 +1,167 @@
+# Initial development roadmap for workweek_survey
+- task_id: T001
+  title: Project scaffolding
+  description: Create initial project structure, boilerplate files, and CI configuration.
+  status: todo
+  dependencies: []
+  files_to_create:
+    - README.md
+    - pyproject.toml
+    - .gitignore
+    - src/workweek_survey/__init__.py
+    - tests/test_initialization.py
+  files_to_modify: []
+  acceptance_criteria:
+    - "All boilerplate files exist and lint without errors."
+    - "pytest test_sanity_check passes."
+  complexity: 1
+
+- task_id: T002
+  title: Define survey schema
+  description: Design the JSON/YAML schema for survey responses, including task name, duration, and category fields.
+  status: todo
+  dependencies: [T001]
+  files_to_create:
+    - src/workweek_survey/schema.py
+  files_to_modify: []
+  acceptance_criteria:
+    - "Survey schema validates sample JSON payloads."
+    - "Unit tests cover at least 80% of schema logic."
+  complexity: 2
+
+- task_id: T003
+  title: Implement API endpoints
+  description: Build FastAPI routes for:  
+    - `GET /survey` to serve the survey HTML/form.  
+    - `POST /submit` to receive and validate responses.  
+    - `GET /export` to download stored results in the configured format.
+  status: todo
+  dependencies: [T002]
+  files_to_create:
+    - src/workweek_survey/main.py
+  files_to_modify:
+    - src/workweek_survey/__init__.py
+  acceptance_criteria:
+    - "POST /submit returns 200 for valid input."
+    - "GET /export returns correct format based on OUTPUT_FORMAT."
+  complexity: 3
+
+- task_id: T004
+  title: Frontend survey form
+  description: Create a minimal HTML/CSS/JS page that renders the questions defined in schema.py and submits via AJAX.
+  status: todo
+  dependencies: [T003]
+  files_to_create:
+    - src/workweek_survey/templates/survey.html
+    - src/workweek_survey/static/styles.css
+  files_to_modify:
+    - src/workweek_survey/main.py
+  acceptance_criteria:
+    - "Form loads in under 1s."
+    - "Submission shows a confirmation message."
+  complexity: 5
+
+- task_id: T005
+  title: Data storage module
+  description: Implement a storage layer that appends each response to disk in the chosen format under `STORAGE_PATH`.
+  status: todo
+  dependencies: [T003]
+  files_to_create:
+    - src/workweek_survey/storage.py
+  files_to_modify: []
+  acceptance_criteria:
+    - "Submitted responses appear in STORAGE_PATH."
+    - "Reading back files yields valid schema objects."
+  complexity: 3
+
+- task_id: T006
+  title: Environment and config
+  description: Load `.env`, validate required keys, and make configuration available to the app.
+  status: todo
+  dependencies: [T001]
+  files_to_create:
+    - src/workweek_survey/config.py
+  files_to_modify:
+    - src/workweek_survey/main.py
+  acceptance_criteria:
+    - "Missing .env keys raise a clear startup error."
+    - "Config values accessible via `config.py`."
+  complexity: 2
+
+- task_id: T007
+  title: Dockerize application
+  description: Ensure Dockerfile and docker-compose work for local dev; test container startup and hot reload.
+  status: todo
+  dependencies: [T001, T006]
+  files_to_create: []
+  files_to_modify:
+    - Dockerfile
+    - docker-compose.yml
+  acceptance_criteria:
+    - "Containers build without errors."
+    - "Changes to source trigger reload in container."
+  complexity: 2
+
+- task_id: T008
+  title: Write end-to-end tests
+  description: Use pytest and httpx to test the full survey flow from `GET /survey` through `POST /submit` and `GET /export`.
+  status: todo
+  dependencies: [T003, T005]
+  files_to_create:
+    - tests/test_survey_flow.py
+  files_to_modify: []
+  acceptance_criteria:
+    - "E2E tests pass in CI."
+    - "Coverage > 90% for API endpoints."
+  complexity: 5
+
+- task_id: T009
+  title: Continuous integration
+  description: Configure GitHub Actions (or similar) to run linting, tests, and build on each PR.
+  status: todo
+  dependencies: [T001, T008]
+  files_to_create:
+    - .github/workflows/ci.yml
+  files_to_modify: []
+  acceptance_criteria:
+    - "PRs show passing CI checks before merge."
+  complexity: 3
+
+- task_id: T010
+  title: Analytics dashboard prototype
+  description: Build a simple script or notebook that reads stored responses and outputs summary metrics (e.g., average hours per category).
+  status: todo
+  dependencies: [T005]
+  files_to_create:
+    - analytics/summary.ipynb
+  files_to_modify: []
+  acceptance_criteria:
+    - "Notebook runs end-to-end and shows charts."
+  complexity: 5
+
+- task_id: T011
+  title: Documentation and examples
+  description: Expand README with usage screenshots, CLI examples, and export format samples.
+  status: todo
+  dependencies: [T004, T005]
+  files_to_create:
+    - docs/usage.md
+  files_to_modify:
+    - README.md
+  acceptance_criteria:
+    - "README clearly guides a new user from install to export."
+  complexity: 2
+
+- task_id: T012
+  title: Annual update workflow
+  description: Add logic or reminders for scheduling the survey annually; consider adding a timestamp/version to exports.
+  status: todo
+  dependencies: [T005]
+  files_to_create:
+    - src/workweek_survey/utils.py
+  files_to_modify:
+    - README.md
+  acceptance_criteria:
+    - "Exports include a field `survey_year`."
+    - "README describes annual update process."
+  complexity: 1
