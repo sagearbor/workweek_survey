@@ -49,7 +49,7 @@
 - task_id: T004
   title: Frontend survey form
   description: Create a minimal HTML/CSS/JS page that renders the questions defined in schema.py and submits via AJAX.
-  status: todo
+  status: done
   dependencies: [T003]
   files_to_create:
     - src/workweek_survey/templates/survey.html
@@ -105,7 +105,7 @@
 - task_id: T008
   title: Write end-to-end tests
   description: Use pytest and httpx to test the full survey flow from `GET /survey` through `POST /submit` and `GET /export`.
-  status: todo
+  status: done
   dependencies: [T003, T005]
   files_to_create:
     - tests/test_survey_flow.py
