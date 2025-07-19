@@ -1,21 +1,27 @@
 from fastapi import FastAPI, HTTPException, Request
 from fastapi.responses import HTMLResponse, JSONResponse, Response
+from fastapi.staticfiles import StaticFiles
+from fastapi.templating import Jinja2Templates
 import json
 import os
+from pathlib import Path
 from typing import List
 import yaml
 
 from . import schema
 
+BASE_DIR = Path(__file__).parent
 app = FastAPI()
+templates = Jinja2Templates(directory=str(BASE_DIR / "templates"))
+app.mount("/static", StaticFiles(directory=str(BASE_DIR / "static")), name="static")
 
 # In-memory storage for submitted survey responses
 _RESPONSES: List[schema.SurveyResponse] = []
 
 @app.get("/survey", response_class=HTMLResponse)
-async def get_survey() -> str:
-    """Serve the survey form. Placeholder HTML for now."""
-    return "<html><body><h1>Workweek Survey</h1></body></html>"
+async def get_survey(request: Request):
+    """Serve the survey form."""
+    return templates.TemplateResponse("survey.html", {"request": request})
 
 @app.post("/submit")
 async def submit(request: Request):

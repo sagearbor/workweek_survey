@@ -12,6 +12,7 @@ dependencies = [
   "uvicorn[standard]",
   "python-dotenv",
   "pyyaml",
+  "jinja2",
 ]
 [project.optional-dependencies]
 dev = [

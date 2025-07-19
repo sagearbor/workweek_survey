@@ -21,6 +21,12 @@ def test_submit_returns_200():
     assert response.json()["status"] == "ok"
 
 
+def test_get_survey_page():
+    response = client.get("/survey")
+    assert response.status_code == 200
+    assert "<form" in response.text
+
+
 def test_export_json():
     os.environ["OUTPUT_FORMAT"] = "json"
     client.post("/submit", json=sample_payload())
