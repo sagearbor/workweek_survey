@@ -2,7 +2,7 @@
 - task_id: T001
   title: Project scaffolding
   description: Create initial project structure, boilerplate files, and CI configuration.
-  status: todo
+  status: done
   dependencies: []
   files_to_create:
     - README.md
@@ -19,7 +19,7 @@
 - task_id: T002
   title: Define survey schema
   description: Design the JSON/YAML schema for survey responses, including task name, duration, and category fields.
-  status: todo
+  status: done
   dependencies: [T001]
   files_to_create:
     - src/workweek_survey/schema.py
@@ -35,7 +35,7 @@
     - `GET /survey` to serve the survey HTML/form.  
     - `POST /submit` to receive and validate responses.  
     - `GET /export` to download stored results in the configured format.
-  status: todo
+  status: done
   dependencies: [T002]
   files_to_create:
     - src/workweek_survey/main.py

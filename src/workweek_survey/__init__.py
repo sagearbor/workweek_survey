@@ -1,1 +1,5 @@
-# Python package placeholder for workweek_survey
+"""workweek_survey package entry point."""
+
+from .main import app
+
+__all__ = ["app"]
