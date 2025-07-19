@@ -19,4 +19,4 @@ jobs:
           pip install .[dev]
       - name: Run tests
         run: |
-          pytest -q
+          pytest -v # Changed from -q to -v so verbose and not quiet
