@@ -49,3 +49,22 @@ def test_export_yaml():
     data = yaml.safe_load(response.text)
     assert "survey_year" in data
     assert data["responses"][-1]["respondent"] == "alice"
+
+
+def test_export_csv():
+    os.environ["OUTPUT_FORMAT"] = "csv"
+    client.post("/submit", json=sample_payload())
+    response = client.get("/export")
+    assert response.status_code == 200
+    assert response.headers["content-type"].startswith("text/csv")
+    import csv
+    rows = list(csv.reader(response.text.splitlines()))
+    assert rows[0] == [
+        "survey_year",
+        "respondent",
+        "org_branch",
+        "name",
+        "duration_hours",
+        "category",
+    ]
+    assert rows[-1][1] == "alice"
