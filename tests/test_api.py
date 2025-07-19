@@ -34,8 +34,9 @@ def test_export_json():
     response = client.get("/export")
     assert response.status_code == 200
     data = response.json()
-    assert isinstance(data, list)
-    assert data[-1]["respondent"] == "alice"
+    assert "survey_year" in data
+    assert isinstance(data["responses"], list)
+    assert data["responses"][-1]["respondent"] == "alice"
 
 
 def test_export_yaml():
@@ -44,3 +45,7 @@ def test_export_yaml():
     response = client.get("/export")
     assert response.status_code == 200
     assert response.headers["content-type"].startswith("application/x-yaml")
+    import yaml
+    data = yaml.safe_load(response.text)
+    assert "survey_year" in data
+    assert data["responses"][-1]["respondent"] == "alice"

@@ -9,6 +9,7 @@ import yaml
 
 from . import schema
 from .config import get_settings
+from . import utils
 
 BASE_DIR = Path(__file__).parent
 app = FastAPI()
@@ -41,12 +42,14 @@ async def submit(request: Request):
 async def export() -> Response:
     """Export collected responses in OUTPUT_FORMAT."""
     fmt = get_settings().output_format
+    payload = {
+        "survey_year": utils.current_survey_year(),
+        "responses": [json.loads(schema.dumps(r)) for r in _RESPONSES],
+    }
     if fmt == "json":
-        data = [json.loads(schema.dumps(r)) for r in _RESPONSES]
-        return JSONResponse(content=data)
+        return JSONResponse(content=payload)
     elif fmt == "yaml":
-        data = [json.loads(schema.dumps(r)) for r in _RESPONSES]
-        yaml_str = yaml.safe_dump(data)
+        yaml_str = yaml.safe_dump(payload)
         return Response(content=yaml_str, media_type="application/x-yaml")
     else:
         raise HTTPException(status_code=500, detail="Unsupported OUTPUT_FORMAT")

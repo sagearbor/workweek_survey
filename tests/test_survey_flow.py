@@ -33,5 +33,6 @@ def test_end_to_end_flow(tmp_path, monkeypatch):
     response = client.get("/export")
     assert response.status_code == 200
     data = response.json()
-    assert data[-1]["respondent"] == "e2e-user"
-    assert data[-1]["tasks"][0]["name"] == "code"
+    assert "survey_year" in data
+    assert data["responses"][-1]["respondent"] == "e2e-user"
+    assert data["responses"][-1]["tasks"][0]["name"] == "code"
