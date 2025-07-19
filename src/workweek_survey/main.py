@@ -3,12 +3,12 @@ from fastapi.responses import HTMLResponse, JSONResponse, Response
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 import json
-import os
 from pathlib import Path
 from typing import List
 import yaml
 
 from . import schema
+from .config import get_settings
 
 BASE_DIR = Path(__file__).parent
 app = FastAPI()
@@ -40,7 +40,7 @@ async def submit(request: Request):
 @app.get("/export")
 async def export() -> Response:
     """Export collected responses in OUTPUT_FORMAT."""
-    fmt = os.getenv("OUTPUT_FORMAT", "json").lower()
+    fmt = get_settings().output_format
     if fmt == "json":
         data = [json.loads(schema.dumps(r)) for r in _RESPONSES]
         return JSONResponse(content=data)

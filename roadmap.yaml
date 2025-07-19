@@ -64,7 +64,7 @@
 - task_id: T005
   title: Data storage module
   description: Implement a storage layer that appends each response to disk in the chosen format under `STORAGE_PATH`.
-  status: todo
+  status: done
   dependencies: [T003]
   files_to_create:
     - src/workweek_survey/storage.py
@@ -77,7 +77,7 @@
 - task_id: T006
   title: Environment and config
   description: Load `.env`, validate required keys, and make configuration available to the app.
-  status: todo
+  status: done
   dependencies: [T001]
   files_to_create:
     - src/workweek_survey/config.py
