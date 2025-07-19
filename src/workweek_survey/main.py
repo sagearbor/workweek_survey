@@ -10,6 +10,7 @@ import yaml
 from . import schema
 from .config import get_settings
 from . import utils
+from .dashboard import dashboard as dashboard_view
 
 BASE_DIR = Path(__file__).parent
 app = FastAPI()
@@ -53,3 +54,9 @@ async def export() -> Response:
         return Response(content=yaml_str, media_type="application/x-yaml")
     else:
         raise HTTPException(status_code=500, detail="Unsupported OUTPUT_FORMAT")
+
+
+@app.get("/dashboard", response_class=HTMLResponse)
+async def dashboard(request: Request):
+    """Serve the interactive analytics dashboard."""
+    return await dashboard_view(request)

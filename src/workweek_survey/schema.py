@@ -24,6 +24,7 @@ class SurveyResponse:
     """All tasks submitted by a team member."""
     tasks: List[TaskEntry]
     respondent: Optional[str] = None
+    org_branch: Optional[str] = None
 
     def __post_init__(self) -> None:
         if not self.tasks:
@@ -35,7 +36,8 @@ def loads(data: str) -> SurveyResponse:
     raw = json.loads(data)
     tasks = [TaskEntry(**item) for item in raw.get("tasks", [])]
     respondent = raw.get("respondent")
-    return SurveyResponse(tasks=tasks, respondent=respondent)
+    org_branch = raw.get("org_branch")
+    return SurveyResponse(tasks=tasks, respondent=respondent, org_branch=org_branch)
 
 
 def dumps(response: SurveyResponse) -> str:
