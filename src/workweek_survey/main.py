@@ -23,7 +23,7 @@ _RESPONSES: List[schema.SurveyResponse] = []
 @app.get("/survey", response_class=HTMLResponse)
 async def get_survey(request: Request):
     """Serve the survey form."""
-    return templates.TemplateResponse("survey.html", {"request": request})
+    return templates.TemplateResponse(request, "survey.html")
 
 @app.post("/submit")
 async def submit(request: Request):

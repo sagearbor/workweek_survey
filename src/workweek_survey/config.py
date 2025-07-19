@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 from pydantic import ValidationError, field_validator
-from pydantic_settings import BaseSettings
+from pydantic_settings import BaseSettings, SettingsConfigDict
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -18,9 +18,7 @@ class Settings(BaseSettings):
             raise ValueError("OUTPUT_FORMAT must be 'json' or 'yaml'")
         return lv
 
-    class Config:
-        env_prefix = ""
-        env_file = ".env"
+    model_config = SettingsConfigDict(env_prefix="", env_file=".env")
 
 
 def get_settings() -> Settings:
